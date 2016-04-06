@@ -48,7 +48,8 @@ class GameOver: SKScene {
     
 
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
         for touch: AnyObject in touches {
             let location = touch.locationInNode(self)
             if beginNew.containsPoint(location){
