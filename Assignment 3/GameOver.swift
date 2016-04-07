@@ -15,7 +15,7 @@ class GameOver: SKScene {
     override func didMoveToView(view: SKView) {
         
  
-        let currentScore = SKLabelNode(text: "Current Score is")
+        let currentScore = SKLabelNode(text: "Current Score is ")
         currentScore.fontSize = 75
         currentScore.fontName = "Avenir-Heavy"
         //currentScore.fontColor: UIColor(blueColor)

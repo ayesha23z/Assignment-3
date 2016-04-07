@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6A148A181CB35EFB0065B8AA /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A148A171CB35EFB0065B8AA /* GameOver.swift */; };
+		6A165F041CB5DD0B00B4EB44 /* death.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6A165F031CB5DD0B00B4EB44 /* death.wav */; };
+		6A165F061CB5DD1400B4EB44 /* bite.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6A165F051CB5DD1400B4EB44 /* bite.wav */; };
 		6AC07E841CB193BA00095001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC07E831CB193BA00095001 /* AppDelegate.swift */; };
 		6AC07E861CB193BA00095001 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6AC07E851CB193BA00095001 /* GameScene.sks */; };
 		6AC07E881CB193BA00095001 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC07E871CB193BA00095001 /* GameScene.swift */; };
@@ -19,6 +21,8 @@
 
 /* Begin PBXFileReference section */
 		6A148A171CB35EFB0065B8AA /* GameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
+		6A165F031CB5DD0B00B4EB44 /* death.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = death.wav; sourceTree = "<group>"; };
+		6A165F051CB5DD1400B4EB44 /* bite.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bite.wav; sourceTree = "<group>"; };
 		6AC07E801CB193BA00095001 /* Assignment 3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Assignment 3.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AC07E831CB193BA00095001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6AC07E851CB193BA00095001 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -69,6 +73,8 @@
 				6AC07E8E1CB193BA00095001 /* Assets.xcassets */,
 				6AC07E901CB193BA00095001 /* LaunchScreen.storyboard */,
 				6AC07E931CB193BA00095001 /* Info.plist */,
+				6A165F051CB5DD1400B4EB44 /* bite.wav */,
+				6A165F031CB5DD0B00B4EB44 /* death.wav */,
 			);
 			path = "Assignment 3";
 			sourceTree = "<group>";
@@ -131,6 +137,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A165F061CB5DD1400B4EB44 /* bite.wav in Resources */,
+				6A165F041CB5DD0B00B4EB44 /* death.wav in Resources */,
 				6AC07E861CB193BA00095001 /* GameScene.sks in Resources */,
 				6AC07E921CB193BA00095001 /* LaunchScreen.storyboard in Resources */,
 				6AC07E8F1CB193BA00095001 /* Assets.xcassets in Resources */,
