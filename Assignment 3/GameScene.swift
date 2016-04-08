@@ -7,6 +7,7 @@
 //  Assignment 3
 
 import SpriteKit
+import AVFoundation
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     let mazeman = SKSpriteNode(imageNamed: "caveman")
@@ -30,7 +31,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let fire = SKSpriteNode(imageNamed: "fire")
     var gameGrid = [[Bool]]()
     var currentVector: CGVector?
-
+    
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -62,7 +63,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         
         mazeman.size = CGSize(width: 64, height: 64)
-        mazeman.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+        mazeman.position = CGPoint(x: 32 , y: 96)
+        mazeman.xScale = -1
         mazeman.physicsBody = SKPhysicsBody(circleOfRadius: 25)
         mazeman.physicsBody?.affectedByGravity = false
         mazeman.physicsBody?.allowsRotation = false
@@ -97,13 +99,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         welcomeScreen.position = CGPoint(x: frame.size.width/2, y: frame.size.height - 65)
         self.addChild(welcomeScreen)
 
-        welcomeText.fontSize = 45
+        welcomeText.fontSize = 35
         welcomeText.fontName = "Avenir-Heavy"
         welcomeText.position = CGPoint(x: frame.size.width/2, y: frame.size.height - 80)
         self.addChild(welcomeText)
         
+        let randomDino2 = Double(arc4random_uniform(9))
+        print("random number is \(randomDino2)")
+        //var dinoPosDino2 = (randomDino2 * 64) + 96
         dino2.size = CGSize(width: 64, height: 64)
-        dino2.position = CGPoint(x: CGRectGetMaxX(frame) - 32, y: CGRectGetMidY(frame))
+        dino2.position = CGPoint(x: Double(CGRectGetMaxX(frame) - 32), y: (randomDino2 * 64) + 96)
         dino2.physicsBody = SKPhysicsBody(circleOfRadius: 30)
         dino2.physicsBody?.affectedByGravity = false
         dino2.physicsBody?.collisionBitMask = 0
@@ -126,7 +131,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         dino4.runAction(SKAction.repeatActionForever(sequence3), withKey:  "movingLeft")
         
         dino3.size = CGSize(width: 64, height: 64)
-        dino3.position = CGPoint(x: 32, y: CGRectGetMidY(frame))
+        dino3.position = CGPoint(x: 32, y: CGRectGetMaxY(frame) - 160)
         dino3.physicsBody = SKPhysicsBody(circleOfRadius: 30)
         dino3.physicsBody?.affectedByGravity = false
         dino3.physicsBody?.collisionBitMask = 1
@@ -194,8 +199,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         waterBlock2.position = CGPoint(x: 736, y: 32)
         self.addChild(waterBlock2)
         
+        let randomDino = Double(arc4random_uniform(2) + 1)
+        print("random number is \(randomDino)")
+        
         dino1.size = CGSize(width: 64, height: 64)
-        dino1.position = CGPoint(x: 736, y: CGRectGetMinY(frame) + 32)
+        if randomDino == 1{
+            dino1.position = CGPoint(x: 416, y: CGRectGetMinY(frame) + 32)
+        }else {
+            dino1.position = CGPoint(x: 736, y: CGRectGetMinY(frame) + 32)
+        }
         dino1.physicsBody = SKPhysicsBody(circleOfRadius: 30)
         dino1.physicsBody?.affectedByGravity = false
         dino1.physicsBody?.collisionBitMask = 0
@@ -238,7 +250,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "gameGridBox", userInfo: nil, repeats: false)
-        
+        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "reduceEnergy", userInfo: nil, repeats: true)
+       
         food.size = CGSize(width: 64, height: 64)
         food.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 64, height: 64))
         food.physicsBody?.affectedByGravity = false
@@ -281,6 +294,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         star2.position = CGPoint(x: (64 * starx) + 32, y:(64*stary) + 96)
         
         NSTimer.scheduledTimerWithTimeInterval(Double(arc4random_uniform(20)) + 41, target: self, selector: "gravityWarning", userInfo: nil, repeats: true)
+        
+        NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: "reduceEnergy", userInfo: nil, repeats: false)
     }
     
     func gravityWarning() {
@@ -295,6 +310,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     func turnOff() {
         mazeman.physicsBody?.affectedByGravity = false
+    }
+    
+    func reduceEnergy(){
+        percentage = percentage - 1
     }
     
     func gameGridBox() {
@@ -318,6 +337,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             gameGridBox()
         }
     }
+    
+
 
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
@@ -330,7 +351,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         livesText.text = String(numberOfLives)
         starText.text = String(points)
         if numberOfLives < 1{
+            self.runAction(SKAction.playSoundFileNamed("gameOver.wav", waitForCompletion: true))
             gameOverScreen()
+            
+        }
+        
+        if mazeman.physicsBody?.velocity.dx < 0 {
+            mazeman.xScale = 1
+        } else {
+            mazeman.xScale = -1
         }
     }
     
@@ -369,7 +398,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let location = convertPointFromView(tap)
             let x = (location.x - mazeman.position.x)
             let y = (location.y - mazeman.position.y)
-            
+            self.runAction(SKAction.playSoundFileNamed("shootRock.aiff", waitForCompletion: false))
             shootingRocks.physicsBody?.velocity = CGVector(dx:x/sqrt(x*x + y*y)*200 , dy: y/sqrt(x*x + y*y)*200)
             shootingRocks.physicsBody?.linearDamping = 0
             numberOfRocks = numberOfRocks - 1
@@ -403,9 +432,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func gameOverScreen(){
         let gameOverScreen = GameOver(size: scene!.size)
+        gameOverScreen.score = points
+        self.runAction(SKAction.playSoundFileNamed("gameOver.wav", waitForCompletion: false))
         scene!.view?.presentScene(gameOverScreen, transition: SKTransition.crossFadeWithDuration(1))
     }
     
+    func deadDinoText(){
+            welcomeText.text = "Good job! You've killed a dinosaur!"
+    }
+    
+    func updateWelcomeText(){
+        welcomeText.fontSize = 35
+        welcomeText.text = "Hurry and get the star!"
+    }
+
+    func fireGoneText(){
+        welcomeText.text = "Good, you've put out the fire! Keep moving!"
+    }
+    func gotStarText(){
+        welcomeText.fontSize = 30
+        welcomeText.text = "You've got the star! Keep going to increase your score!"
+    }
+    func gotFoodText(){
+        welcomeText.fontSize = 30
+        welcomeText.text = "You just ate! Remember to keep your energy up!"
+    }
+
     func reAddDino(sender : NSTimer) {
         if sender.userInfo as! String == "1" {
             addChild(dino1)
@@ -449,60 +501,79 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         food.position = CGPoint(x: (64 * foodx) + 32, y:(64*foody) + 96)
         addChild(food)
     }
-    
+    //dinos hitting mazeman
     func didBeginContact(contact: SKPhysicsContact){
         print("contact")
         if contact.bodyA == waterBlock.physicsBody ||  contact.bodyA == waterBlock2.physicsBody {
-            gameOverScreen()
-        } else if contact.bodyB == dino2.physicsBody {
+            percentage = 0
+        } else if contact.bodyB == dino2.physicsBody && contact.bodyA == mazeman.physicsBody {
             percentage = percentage - 80
-        } else if contact.bodyB == dino1.physicsBody {
+            self.runAction(SKAction.playSoundFileNamed("scream.wav", waitForCompletion: false))
+        } else if contact.bodyB == dino1.physicsBody && contact.bodyA == mazeman.physicsBody {
             percentage = percentage - 60
-        } else if contact.bodyB == fire.physicsBody {
+            self.runAction(SKAction.playSoundFileNamed("scream.wav", waitForCompletion: false))
+        } else if contact.bodyB == fire.physicsBody && contact.bodyA == mazeman.physicsBody {
             percentage = percentage - 100
-        } else if contact.bodyA == food.physicsBody{
-            percentage = percentage + 50
-            //shouldn't be able to go past 3 lives
+            self.runAction(SKAction.playSoundFileNamed("scream.wav", waitForCompletion: false))
         } else if contact.bodyA == star2.physicsBody{
             points = points + 1
         } else if contact.bodyB == dino3.physicsBody && contact.bodyA == mazeman.physicsBody {
             percentage = percentage - 100
+            self.runAction(SKAction.playSoundFileNamed("scream.wav", waitForCompletion: false))
         }
         
-        //for rocks
+        let random = Double(arc4random_uniform(5) + 1)
+        //for rocks hitting dinos
         if contact.bodyA == dino2.physicsBody {
             dino2.removeFromParent()
-            NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "reAddDino:", userInfo: "2", repeats: false)
+            self.runAction(SKAction.playSoundFileNamed("death.wav", waitForCompletion: false))
+            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "deadDinoText", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(random, target: self, selector: "reAddDino:", userInfo: "2", repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "updateWelcomeText", userInfo: "2", repeats: false)
         } else if contact.bodyA == dino1.physicsBody {
             dino1.removeFromParent()
-            NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "reAddDino:", userInfo: "1", repeats: false)
+            self.runAction(SKAction.playSoundFileNamed("death.wav", waitForCompletion: false))
+            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "deadDinoText", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(random, target: self, selector: "reAddDino:", userInfo: "1", repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "updateWelcomeText", userInfo: "1", repeats: false)
         } else if contact.bodyA == fire.physicsBody {
             fire.removeFromParent()
             fire.position = CGPoint(x: -64, y: -64)
+            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "fireGoneText", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "updateWelcomeText", userInfo: nil, repeats: false)
             addChild(fire)
         } else if contact.bodyA == dino3.physicsBody {
             dino3.removeFromParent()
-            NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "reAddDino:", userInfo: "3", repeats: false)
+            self.runAction(SKAction.playSoundFileNamed("death.wav", waitForCompletion: false))
+            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "deadDinoText", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(random, target: self, selector: "reAddDino:", userInfo: "3", repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "updateWelcomeText", userInfo: "3", repeats: false)
         }
         
         //for food and star
         else if contact.bodyA == star2.physicsBody {
             if contact.bodyB == mazeman.physicsBody {
+                self.runAction(SKAction.playSoundFileNamed("star.wav", waitForCompletion: false))
                 star2.removeFromParent()
+                NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "gotStarText", userInfo: nil, repeats: false)
+                NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "updateWelcomeText", userInfo: "3", repeats: false)
                 reAddStar()
             }
         } else if contact.bodyA == food.physicsBody {
             if contact.bodyB == mazeman.physicsBody {
                 food.removeFromParent()
+                self.runAction(SKAction.playSoundFileNamed("food.wav", waitForCompletion: false))
+                NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "gotFoodText", userInfo: nil, repeats: false)
+                NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "updateWelcomeText", userInfo: "3", repeats: false)
                 reAddFood()
-            } else {
+            } else if contact.bodyB != fire.physicsBody { //this doesn't cover fire
                 food.removeFromParent()
-                NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "reAddFood", userInfo: nil, repeats: false)
+                NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "reAddFood", userInfo: nil, repeats: false)
             }
         }
         
         //random dino
-        else if contact.bodyB == dino3.physicsBody {
+        else if contact.bodyB == dino3.physicsBody && contact.bodyA == physicsBody {
             var x = 0
             var y = 0
             if dino3.position.x < 32 {
@@ -518,7 +589,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 x = -Int(arc4random_uniform(200))
                 y = Int(arc4random_uniform(400)) - 200
             }
-            
+            if x < 0 {
+                dino3.xScale = -1
+            } else {
+                dino3.xScale = 1
+            }
             dino3.removeAllActions()
             dino3.runAction(SKAction.repeatActionForever(SKAction.moveBy(CGVector(dx: x, dy: y), duration: 1.0)))
             

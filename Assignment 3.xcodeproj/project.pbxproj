@@ -10,6 +10,11 @@
 		6A148A181CB35EFB0065B8AA /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A148A171CB35EFB0065B8AA /* GameOver.swift */; };
 		6A165F041CB5DD0B00B4EB44 /* death.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6A165F031CB5DD0B00B4EB44 /* death.wav */; };
 		6A165F061CB5DD1400B4EB44 /* bite.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6A165F051CB5DD1400B4EB44 /* bite.wav */; };
+		6A2A51521CB6C4400088F0DD /* star.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6A2A51511CB6C4400088F0DD /* star.wav */; };
+		6A2A51541CB6D7770088F0DD /* food.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6A2A51531CB6D7770088F0DD /* food.wav */; };
+		6A2A51561CB6D82F0088F0DD /* scream.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6A2A51551CB6D82F0088F0DD /* scream.wav */; };
+		6A2A51581CB6D8DA0088F0DD /* gameOver.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6A2A51571CB6D8DA0088F0DD /* gameOver.wav */; };
+		6A2A515A1CB6D96E0088F0DD /* shootRock.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 6A2A51591CB6D96E0088F0DD /* shootRock.aiff */; };
 		6AC07E841CB193BA00095001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC07E831CB193BA00095001 /* AppDelegate.swift */; };
 		6AC07E861CB193BA00095001 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6AC07E851CB193BA00095001 /* GameScene.sks */; };
 		6AC07E881CB193BA00095001 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC07E871CB193BA00095001 /* GameScene.swift */; };
@@ -23,6 +28,11 @@
 		6A148A171CB35EFB0065B8AA /* GameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
 		6A165F031CB5DD0B00B4EB44 /* death.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = death.wav; sourceTree = "<group>"; };
 		6A165F051CB5DD1400B4EB44 /* bite.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bite.wav; sourceTree = "<group>"; };
+		6A2A51511CB6C4400088F0DD /* star.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = star.wav; sourceTree = "<group>"; };
+		6A2A51531CB6D7770088F0DD /* food.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = food.wav; sourceTree = "<group>"; };
+		6A2A51551CB6D82F0088F0DD /* scream.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = scream.wav; sourceTree = "<group>"; };
+		6A2A51571CB6D8DA0088F0DD /* gameOver.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gameOver.wav; sourceTree = "<group>"; };
+		6A2A51591CB6D96E0088F0DD /* shootRock.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = shootRock.aiff; sourceTree = "<group>"; };
 		6AC07E801CB193BA00095001 /* Assignment 3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Assignment 3.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AC07E831CB193BA00095001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6AC07E851CB193BA00095001 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -74,7 +84,12 @@
 				6AC07E901CB193BA00095001 /* LaunchScreen.storyboard */,
 				6AC07E931CB193BA00095001 /* Info.plist */,
 				6A165F051CB5DD1400B4EB44 /* bite.wav */,
+				6A2A51511CB6C4400088F0DD /* star.wav */,
 				6A165F031CB5DD0B00B4EB44 /* death.wav */,
+				6A2A51551CB6D82F0088F0DD /* scream.wav */,
+				6A2A51571CB6D8DA0088F0DD /* gameOver.wav */,
+				6A2A51591CB6D96E0088F0DD /* shootRock.aiff */,
+				6A2A51531CB6D7770088F0DD /* food.wav */,
 			);
 			path = "Assignment 3";
 			sourceTree = "<group>";
@@ -141,8 +156,13 @@
 				6A165F041CB5DD0B00B4EB44 /* death.wav in Resources */,
 				6AC07E861CB193BA00095001 /* GameScene.sks in Resources */,
 				6AC07E921CB193BA00095001 /* LaunchScreen.storyboard in Resources */,
+				6A2A51581CB6D8DA0088F0DD /* gameOver.wav in Resources */,
+				6A2A51541CB6D7770088F0DD /* food.wav in Resources */,
+				6A2A51561CB6D82F0088F0DD /* scream.wav in Resources */,
 				6AC07E8F1CB193BA00095001 /* Assets.xcassets in Resources */,
 				6AC07E8D1CB193BA00095001 /* Main.storyboard in Resources */,
+				6A2A51521CB6C4400088F0DD /* star.wav in Resources */,
+				6A2A515A1CB6D96E0088F0DD /* shootRock.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
